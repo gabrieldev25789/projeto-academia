@@ -12,35 +12,50 @@ function FormCadastro() {
 
     const [entrar, setEntrar] = useState(false)
 
-    function cadastrarUser(){
-        if(!nome || !email || !senha) {
-            alert("Digite valores")
-            return 
-        }
+    const [userCriado, setUserCriado] = useState({})
 
-        if(senha !== confirmarSenha) {
-            alert("Senha diferente")
-            return 
-        }
-
-        const user = {
-            nome: nome,
-            email: email, 
-            senha: senha 
-        }
-        
-        console.log(user)
-        setNome("")
-        setEmail("")
-        setSenha("")
-        setConfirmarSenha("")
+function cadastrarUser(){
+    if(!nome || !email || !senha) {
+        alert("Digite valores")
+        return 
     }
 
-    function entrarUser(){
-        console.log({ emailLogin, senhaLogin })
+    if(senha !== confirmarSenha) {
+        alert("Senha diferente")
+        return 
     }
 
-    return (
+    const user = {
+        nome: nome,
+        email: email, 
+        senha: senha 
+    }
+
+    setUserCriado(user) // atualiza o state pra uso futuro (ex: mostrar na tela)
+    localStorage.setItem("user", JSON.stringify(user)) // usa "user", não "userCriado"
+
+    setNome("")
+    setEmail("")
+    setSenha("")
+    setConfirmarSenha("")
+}
+
+function entrarUser(){
+    const userLs = JSON.parse(localStorage.getItem("user"))
+
+    if (!userLs) {
+        alert("Nenhum usuário cadastrado")
+        return
+    }
+
+    if (emailLogin === userLs.email && senhaLogin === userLs.senha) {
+        console.log("IGUAL — login ok")
+    } else {
+        alert("E-mail ou senha incorretos")
+    }
+}
+
+return (
       <>
         { !entrar ?  (
             <div className="cadastro-container">
@@ -106,7 +121,7 @@ function FormCadastro() {
             </div> 
             ) : (
           <div className="login-container">
-            <form className="form-login">
+            <div className="form-login">
               <h2>Entrar</h2>
 
               <div className="campo">
@@ -142,7 +157,7 @@ function FormCadastro() {
               <p className="link-cadastro">
                 Ainda não tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setEntrar(false) }}>Cadastre-se</a>
               </p>
-            </form>
+            </div>
           </div>
         )}
       </>
