@@ -1,9 +1,41 @@
+import { useState } from "react"
 import "./FormCadastro.css"
 
 function FormCadastro() {
+
+    const [nome, setNome] = useState("")
+    const [email, setEmail] = useState("")
+    const [senha, setSenha] = useState("")
+    const [confirmarSenha, setConfirmarSenha] = useState("")
+
+function cadastrarUser(){
+
+    if(!nome || !email || !senha) {
+        alert("Digite valores")
+        return 
+    }
+
+    if(senha !== confirmarSenha) {
+        alert("Senha diferente")
+        return 
+    }
+
+    const user = {
+        nome: nome,
+        email: email, 
+        senha: senha 
+    }
+    
+    console.log(user)
+    setNome("")
+    setEmail("")
+    setSenha("")
+    setConfirmarSenha("")
+}
+
   return (
     <div className="cadastro-container">
-      <form className="form-cadastro">
+      <div className="form-cadastro">
         <h2>Criar conta</h2>
 
         <div className="campo">
@@ -12,6 +44,8 @@ function FormCadastro() {
             type="text" 
             id="nome" 
             name="nome" 
+            value={nome}
+            onChange={(e)=> setNome(e.target.value)}
             placeholder="Digite seu nome"
           />
         </div>
@@ -22,6 +56,8 @@ function FormCadastro() {
             type="email" 
             id="email" 
             name="email" 
+            value={email}
+            onChange={(e)=> setEmail(e.target.value)}
             placeholder="Digite seu e-mail"
           />
         </div>
@@ -32,6 +68,8 @@ function FormCadastro() {
             type="password" 
             id="senha" 
             name="senha" 
+            value={senha}
+            onChange={(e)=>setSenha(e.target.value)}
             placeholder="Crie uma senha"
           />
         </div>
@@ -42,18 +80,20 @@ function FormCadastro() {
             type="password" 
             id="confirmarSenha" 
             name="confirmarSenha" 
+            value={confirmarSenha}
+            onChange={(e)=>setConfirmarSenha(e.target.value)}
             placeholder="Repita a senha"
           />
         </div>
 
-        <button type="submit" className="botao-cadastrar">
+        <button onClick={() => cadastrarUser()} className="botao-cadastrar">
           Cadastrar
         </button>
 
         <p className="link-login">
           Já tem uma conta? <a href="#">Entrar</a>
         </p>
-      </form>
+      </div>
     </div>
   )
 }
