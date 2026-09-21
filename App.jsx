@@ -5,7 +5,6 @@ function App() {
 
   return (
     <>
-      <h2>AAAAAAAAA</h2>
       <FormCadastro />
     </>
   )
