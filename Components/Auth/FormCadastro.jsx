@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./FormCadastro.css"
+import Gerador from "../Gerador/Gerador"
 
 function FormCadastro() {
 
@@ -13,6 +14,8 @@ function FormCadastro() {
     const [entrar, setEntrar] = useState(false)
 
     const [userCriado, setUserCriado] = useState({})
+
+    const [mostrarSenha, setMostrarSenha] = useState(false)
 
 function cadastrarUser(){
     if(!nome || !email || !senha) {
@@ -88,20 +91,33 @@ return (
 
                 <div className="campo">
                   <label htmlFor="senha">Senha</label>
-                  <input 
-                    type="password" 
-                    id="senha" 
-                    name="senha" 
-                    value={senha}
-                    onChange={(e)=>setSenha(e.target.value)}
-                    placeholder="Crie uma senha"
-                  />
+                  <div className="campo-senha-wrapper">
+                    <input 
+                      type={mostrarSenha ? "text" : "password"}
+                      id="senha" 
+                      name="senha" 
+                      value={senha}
+                      onChange={(e) => setSenha(e.target.value)}
+                      placeholder="Crie uma senha"
+                    />
+                    <button 
+                      type="button" 
+                      className="botao-mostrar-senha"
+                      onClick={() => setMostrarSenha(!mostrarSenha)}
+                    >
+                      {mostrarSenha ? "Ocultar" : "Mostrar"}
+                    </button>
+                  </div>
+                  <Gerador onGerar={(senhaGerada) => {
+                    setSenha(senhaGerada)
+                    setConfirmarSenha(senhaGerada)
+                  }} />
                 </div>
 
                 <div className="campo">
                   <label htmlFor="confirmarSenha">Confirmar senha</label>
                   <input 
-                    type="password" 
+                    type={mostrarSenha ? "text" : "password"} 
                     id="confirmarSenha" 
                     name="confirmarSenha" 
                     value={confirmarSenha}
