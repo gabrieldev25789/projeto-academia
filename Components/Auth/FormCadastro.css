@@ -62,6 +62,37 @@
   box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
 }
 
+/* Wrapper do campo de senha com botão de mostrar/ocultar */
+.campo-senha-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo-senha-wrapper input {
+  width: 100%;
+  padding-right: 90px; /* espaço pro botão não sobrepor o texto digitado */
+}
+
+.botao-mostrar-senha {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.botao-mostrar-senha:hover {
+  color: #ff6b00;
+}
+
 .botao-cadastrar {
   width: 100%;
   padding: 15px;
