@@ -2,7 +2,7 @@ import { useState } from "react"
 import "./FormCadastro.css"
 import Gerador from "../Gerador/Gerador"
 
-function FormCadastro() {
+function FormCadastro({ setHome, setUsuarioLogado }) {
 
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
@@ -52,6 +52,8 @@ function entrarUser(){
     }
 
     if (emailLogin === userLs.email && senhaLogin === userLs.senha) {
+      setUsuarioLogado(userLs)
+      setHome(true)
         console.log("IGUAL — login ok")
     } else {
         alert("E-mail ou senha incorretos")
