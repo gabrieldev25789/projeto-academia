@@ -31,7 +31,8 @@ function cadastrarUser(){
     const user = {
         nome: nome,
         email: email, 
-        senha: senha 
+        senha: senha,
+        onboardingCompleto: false
     }
 
     setUserCriado(user) // atualiza o state pra uso futuro (ex: mostrar na tela)
