@@ -3,6 +3,7 @@ import "../global.css"
 import FormCadastro from './Components/Auth/FormCadastro'
 import Header from "./Components/Header/Header"
 import Home from "./Components/Home/Home"
+import Onboarding from "./Components/Onboarding/Onboarding"
 
 function App() {
 
@@ -11,9 +12,19 @@ function App() {
 
   return (
     <>
-      {home && <Header />}
-      {!home && <FormCadastro setHome={setHome} setUsuarioLogado={setUsuarioLogado} />}
-      {home && <Home user={usuarioLogado} />}
+      {usuarioLogado && <Header />}
+
+      {!usuarioLogado && <FormCadastro setUsuarioLogado={setUsuarioLogado} setHome={setHome}/>}
+
+      {usuarioLogado &&
+      !usuarioLogado.onboardingCompleto 
+      && 
+      <Onboarding 
+      usuario={usuarioLogado} 
+      setUsuarioLogado={setUsuarioLogado} 
+      />}
+      
+      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado} />}
     </>
   )
 }
