@@ -1,0 +1,24 @@
+.gerador-senha {
+  display: flex;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.gerador-senha a {
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.gerador-senha a::before {
+  content: "⚡ ";
+}
+
+.gerador-senha a:hover {
+  color: #ff6b00;
+  text-decoration: underline;
+}
