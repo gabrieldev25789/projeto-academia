@@ -2,6 +2,7 @@ import IndicadorProgresso from "./IndicadorProgresso"
 import EtapaObjetivo from "./Etapaobjetivo"
 import EtapaMedidas from "./Etapamedidas"
 import EtapaExperiencia from "./Etapaexperiencia"
+import "./Onboarding.css"
 
 import { useState } from "react"
 
@@ -35,7 +36,6 @@ function Onboarding({ usuario, setUsuarioLogado }) {
       {etapa === 2 && <EtapaMedidas dados={dadosOnboarding} setDados={setDadosOnboarding} onProximo={() => setEtapa(3)} onVoltar={() => setEtapa(1)} />}
 
       {etapa === 3 && <EtapaExperiencia dados={dadosOnboarding} setDados={setDadosOnboarding} onFinalizar={finalizarOnboarding} onVoltar={() => setEtapa(2)} />}
-        
     </div>
   )
 }
