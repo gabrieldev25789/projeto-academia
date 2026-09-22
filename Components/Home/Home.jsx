@@ -2,39 +2,56 @@ import "./Home.css"
 
 function Home({ user }) {
 
-    const altura = Number(user.altura) / 100
-    const peso = Number(user.peso)
-
-    const imc = peso / (altura ** 2)
-
-    console.log(imc.toFixed(2))
-
   return (
     <div className="home-container">
-      <h1>Olá, {user?.nome}!</h1>
-      <p>Seu IMC é de {imc.toFixed(2)}</p>
 
-      <div className="perfil-resumo">
-        <div className="perfil-item">
-          <span className="perfil-label">Idade</span>
-          <span className="perfil-valor">{user?.idade} anos</span>
+      {/* Cabeçalho pessoal */}
+      <div className="home-cabecalho">
+        <h1>Olá, {user?.nome}!</h1>
+        <p className="home-resumo">Foco em {user?.objetivo} · {user?.experiencia}</p>
+      </div>
+
+      {/* Cards de métricas rápidas */}
+      <div className="metricas-grid">
+        <div className="metrica-card">
+          <span className="metrica-label">IMC</span>
+          <span className="metrica-valor">--</span>
+          <span className="metrica-extra">Classificação</span>
         </div>
 
-        <div className="perfil-item">
-          <span className="perfil-label">Peso</span>
-          <span className="perfil-valor">{user?.peso} kg</span>
-        </div>
-
-        <div className="perfil-item">
-          <span className="perfil-label">Objetivo</span>
-          <span className="perfil-valor">{user?.objetivo}</span>
-        </div>
-
-        <div className="perfil-item">
-          <span className="perfil-label">Experiência</span>
-          <span className="perfil-valor">{user?.experiencia}</span>
+        <div className="metrica-card">
+          <span className="metrica-label">Peso atual</span>
+          <span className="metrica-valor"> {user?.peso} kg</span>
         </div>
       </div>
+
+      {/* O que fazer agora */}
+      <div className="proximo-passo">
+        <h2>Treino de hoje</h2>
+        <div className="card-placeholder">
+          <p>Você ainda não tem treinos cadastrados</p>
+          <button type="button" className="botao-cta">Criar meu primeiro treino</button>
+        </div>
+      </div>
+
+      {/* Atalhos rápidos */}
+      <div className="atalhos-grid">
+        <div className="atalho-card">
+          <span className="atalho-icone">🏋️</span>
+          <span className="atalho-label">Treinos</span>
+        </div>
+
+        <div className="atalho-card">
+          <span className="atalho-icone">🥗</span>
+          <span className="atalho-label">Dietas</span>
+        </div>
+
+        <div className="atalho-card">
+          <span className="atalho-icone">📊</span>
+          <span className="atalho-label">Desempenho</span>
+        </div>
+      </div>
+
     </div>
   )
 }
