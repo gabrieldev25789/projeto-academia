@@ -1,8 +1,44 @@
+import { useState } from "react"
+
 function EtapaMedidas({ dados, setDados, onProximo, onVoltar }) {
 
-  function atualizarCampo(campo, valor) {
-    setDados({ ...dados, [campo]: valor })
+const LIMITES = {
+  altura: { min: 100, max: 220 },
+  peso: { min: 30, max: 400 },
+  idade: { min: 10, max: 120 }
+}
+
+const [erro, setErro] = useState("")
+
+function validarAntesDeAvancar() {
+
+  for (const campo in LIMITES) {
+
+    const valor = Number(dados[campo])
+    const limite = LIMITES[campo]
+
+    if (valor < limite.min) {
+      setErro(`${campo} deve ser pelo menos ${limite.min}`)
+      return
+    }
   }
+
+  setErro("")
+  onProximo()
+}
+
+function atualizarCampo(campo, valor) {
+  const limite = LIMITES[campo]
+
+  if (limite && valor !== "") {
+    const numero = Number(valor)
+    if (numero > limite.max) {
+      return // só bloqueia se ultrapassar o máximo
+    }
+  }
+
+  setDados({ ...dados, [campo]: valor })
+}
 
   const podeAvancar = dados.peso && dados.altura && dados.idade
 
@@ -49,14 +85,15 @@ function EtapaMedidas({ dados, setDados, onProximo, onVoltar }) {
           Voltar
         </button>
         <button 
-          type="button" 
-          className="botao-proximo"
-          onClick={onProximo}
-          disabled={!podeAvancar}
-        >
-          Próximo
+            type="button" 
+            className="botao-proximo"
+            onClick={validarAntesDeAvancar}
+            disabled={!podeAvancar}
+            >
+            Próximo
         </button>
       </div>
+      {erro && <p className="mensagem-erro">{erro}</p>}
     </div>
   )
 }
