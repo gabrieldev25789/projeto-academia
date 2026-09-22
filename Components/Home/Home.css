@@ -2,39 +2,63 @@
   min-height: 100vh;
   background: radial-gradient(circle at top, #1a1a1a 0%, #0d0d0d 100%);
   padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.home-container h1 {
+.home-cabecalho,
+.metricas-grid,
+.proximo-passo,
+.atalhos-grid {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Cabeçalho pessoal */
+.home-cabecalho {
+  margin-bottom: 36px;
+}
+
+.home-cabecalho h1 {
   color: #ffffff;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 32px;
+  margin-bottom: 6px;
 }
 
-.perfil-resumo {
+.home-resumo {
+  color: #888888;
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+/* Cards de métricas */
+.metricas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
-  max-width: 700px;
+  max-width: 500px;
+  margin-bottom: 40px;
 }
 
-.perfil-item {
+.metrica-card {
   background: #161616;
   border: 1px solid #262626;
   border-radius: 12px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.perfil-item:hover {
+.metrica-card:hover {
   border-color: #ff6b00;
   transform: translateY(-2px);
 }
 
-.perfil-label {
+.metrica-label {
   color: #888888;
   font-size: 0.8rem;
   font-weight: 600;
@@ -42,11 +66,103 @@
   letter-spacing: 0.5px;
 }
 
-.perfil-valor {
+.metrica-valor {
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  text-transform: capitalize;
+}
+
+.metrica-extra {
+  color: #ff6b00;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Próximo passo */
+.proximo-passo {
+  margin-bottom: 40px;
+}
+
+.proximo-passo h2 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.card-placeholder {
+  background: #161616;
+  border: 1px dashed #2e2e2e;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  max-width: 500px;
+}
+
+.card-placeholder p {
+  color: #888888;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.botao-cta {
+  background: linear-gradient(135deg, #ff6b00, #ff8c00);
+  color: #0d0d0d;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.botao-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.35);
+}
+
+/* Atalhos rápidos */
+.atalhos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  max-width: 500px;
+}
+
+.atalho-card {
+  background: #161616;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.atalho-card:hover {
+  border-color: #ff6b00;
+  background: #1c1c1c;
+  transform: translateY(-3px);
+}
+
+.atalho-icone {
+  font-size: 1.8rem;
+}
+
+.atalho-label {
+  color: #d0d0d0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Responsivo */
@@ -55,7 +171,8 @@
     padding: 32px 20px;
   }
 
-  .perfil-resumo {
+  .metricas-grid,
+  .atalhos-grid {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }
