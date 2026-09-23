@@ -7,19 +7,27 @@ import "./Onboarding.css"
 import { useState } from "react"
 
 function Onboarding({ usuario, setUsuarioLogado }) {
+
   const [etapa, setEtapa] = useState(1)
   const [dadosOnboarding, setDadosOnboarding] = useState({
     objetivo: "",
     peso: "",
     altura: "",
     idade: "",
-    experiencia: ""
+    experiencia: "",
+    imc: 0
   })
 
 function finalizarOnboarding() {
+  
+  const altura = Number(dadosOnboarding.altura) / 100 
+  const peso = Number(dadosOnboarding.peso)
+  const imcCalculado = peso / (altura ** 2)
+
     const usuarioAtualizado = {
       ...usuario,
       ...dadosOnboarding,
+      imc: imcCalculado,
       onboardingCompleto: true
     }
 
