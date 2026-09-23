@@ -17,15 +17,30 @@ function FormCadastro({ setHome, setUsuarioLogado }) {
 
     const [mostrarSenha, setMostrarSenha] = useState(false)
 
+function validarEmail(email) {
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regexEmail.test(email)
+}
+
 function cadastrarUser(){
     if(!nome || !email || !senha) {
         alert("Digite valores")
         return 
     }
 
+    if(!validarEmail(email)){
+      alert("Digite um email valido")
+      return 
+    }
+
     if(senha !== confirmarSenha) {
         alert("Senha diferente")
         return 
+    }
+
+    if(senha.length < 8){
+      alert("Senha muito curta")
+      return 
     }
 
     const user = {
