@@ -1,8 +1,11 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./FormCadastro.css"
 import Gerador from "../Gerador/Gerador"
 
-function FormCadastro({ setHome, setUsuarioLogado }) {
+function FormCadastro({ setUsuarioLogado }) {
+
+    const navigate = useNavigate()
 
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
@@ -13,202 +16,188 @@ function FormCadastro({ setHome, setUsuarioLogado }) {
 
     const [entrar, setEntrar] = useState(false)
 
-    const [userCriado, setUserCriado] = useState({})
-
     const [mostrarSenha, setMostrarSenha] = useState(false)
 
-function validarEmail(email) {
-  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return regexEmail.test(email)
-}
+    function cadastrarUser(){
+        if(!nome || !email || !senha) {
+            alert("Digite valores")
+            return 
+        }
 
-function cadastrarUser(){
-    if(!nome || !email || !senha) {
-        alert("Digite valores")
-        return 
+        if(senha !== confirmarSenha) {
+            alert("Senha diferente")
+            return 
+        }
+
+        const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
+
+        const emailJaExiste = usuariosSalvos.some(u => u.email === email)
+        if (emailJaExiste) {
+            alert("Esse e-mail já está cadastrado")
+            return
+        }
+
+        const user = {
+            nome: nome,
+            email: email, 
+            senha: senha,
+            onboardingCompleto: false
+        }
+
+        const usuariosAtualizados = [...usuariosSalvos, user]
+        localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
+        localStorage.setItem("sessaoAtual", user.email)
+
+        setUsuarioLogado(user)
+        navigate("/onboarding")
+
+        setNome("")
+        setEmail("")
+        setSenha("")
+        setConfirmarSenha("")
     }
 
-    if(!validarEmail(email)){
-      alert("Digite um email valido")
-      return 
+    function entrarUser(){
+        const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
+
+        const userEncontrado = usuariosSalvos.find(
+            u => u.email === emailLogin && u.senha === senhaLogin
+        )
+
+        if (!userEncontrado) {
+            alert("E-mail ou senha incorretos")
+            return
+        }
+
+        localStorage.setItem("sessaoAtual", userEncontrado.email)
+        setUsuarioLogado(userEncontrado)
+
+        if (userEncontrado.onboardingCompleto) {
+            navigate("/home")
+        } else {
+            navigate("/onboarding")
+        }
     }
 
-    if(senha !== confirmarSenha) {
-        alert("Senha diferente")
-        return 
-    }
+    return (
+        <>
+            { !entrar ?  (
+                <div className="cadastro-container">
+                  <div className="form-cadastro">
+                    <h2>Criar conta</h2>
 
-    if(senha.length < 8){
-      alert("Senha muito curta")
-      return 
-    }
+                    <div className="campo">
+                      <label htmlFor="nome">Nome</label>
+                      <input 
+                        type="text" 
+                        id="nome" 
+                        name="nome" 
+                        value={nome}
+                        onChange={(e)=> setNome(e.target.value)}
+                        placeholder="Digite seu nome"
+                      />
+                    </div>
 
-    const user = {
-        nome: nome,
-        email: email, 
-        senha: senha,
-        onboardingCompleto: false
-    }
+                    <div className="campo">
+                      <label htmlFor="email">E-mail</label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        value={email}
+                        onChange={(e)=> setEmail(e.target.value)}
+                        placeholder="Digite seu e-mail"
+                      />
+                    </div>
 
-    setUserCriado(user) // atualiza o state pra uso futuro (ex: mostrar na tela)
-    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
+                    <div className="campo">
+                      <label htmlFor="senha">Senha</label>
+                      <div className="campo-senha-wrapper">
+                        <input 
+                          type={mostrarSenha ? "text" : "password"}
+                          id="senha" 
+                          name="senha" 
+                          value={senha}
+                          onChange={(e) => setSenha(e.target.value)}
+                          placeholder="Crie uma senha"
+                        />
+                        <button 
+                          type="button" 
+                          className="botao-mostrar-senha"
+                          onClick={() => setMostrarSenha(!mostrarSenha)}
+                        >
+                          {mostrarSenha ? "Ocultar" : "Mostrar"}
+                        </button>
+                      </div>
+                      <Gerador onGerar={(senhaGerada) => {
+                        setSenha(senhaGerada)
+                        setConfirmarSenha(senhaGerada)
+                      }} />
+                    </div>
 
-    const emailJaExiste = usuariosSalvos.some(u => u.email === email)
+                    <div className="campo">
+                      <label htmlFor="confirmarSenha">Confirmar senha</label>
+                      <input 
+                        type={mostrarSenha ? "text" : "password"} 
+                        id="confirmarSenha" 
+                        name="confirmarSenha" 
+                        value={confirmarSenha}
+                        onChange={(e)=>setConfirmarSenha(e.target.value)}
+                        placeholder="Repita a senha"
+                      />
+                    </div>
 
-    if(emailJaExiste){
-      alert("Email já cadastrado")
-      return 
-    }
+                    <button onClick={() => cadastrarUser()} className="botao-cadastrar">
+                      Cadastrar
+                    </button>
 
-    const usuariosAtualizados = [...usuariosSalvos, user]
-    localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
+                    <p className="link-login">
+                      Já tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setEntrar(true) }}>Entrar</a>
+                    </p>
+                  </div>
+                </div> 
+                ) : (
+              <div className="login-container">
+                <div className="form-login">
+                  <h2>Entrar</h2>
 
-    localStorage.setItem("sessaoAtual", user.email) 
-    setUsuarioLogado(user)
-    setHome(true)
-
-    setNome("")
-    setEmail("")
-    setSenha("")
-    setConfirmarSenha("")
-}
-
-function entrarUser(){
-    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
-
-    const userEncontrado = usuariosSalvos.find(
-        u => u.email === emailLogin && u.senha === senhaLogin
-    )
-
-    if (!userEncontrado) {
-        alert("E-mail ou senha incorretos")
-        return
-    }
-
-    localStorage.setItem("sessaoAtual", userEncontrado.email) // ✅ nova linha
-    setUsuarioLogado(userEncontrado)
-    setHome(true)
-}
-
-return (
-      <>
-        { !entrar ?  (
-            <div className="cadastro-container">
-              <div className="form-cadastro">
-                <h2>Criar conta</h2>
-
-                <div className="campo">
-                  <label htmlFor="nome">Nome</label>
-                  <input 
-                    type="text" 
-                    id="nome" 
-                    name="nome" 
-                    value={nome}
-                    onChange={(e)=> setNome(e.target.value)}
-                    placeholder="Digite seu nome"
-                  />
-                </div>
-
-                <div className="campo">
-                  <label htmlFor="email">E-mail</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
-                    placeholder="Digite seu e-mail"
-                  />
-                </div>
-
-                <div className="campo">
-                  <label htmlFor="senha">Senha</label>
-                  <div className="campo-senha-wrapper">
+                  <div className="campo">
+                    <label htmlFor="email">E-mail</label>
                     <input 
-                      type={mostrarSenha ? "text" : "password"}
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      value={emailLogin}
+                      onChange={(e) => setEmailLogin(e.target.value)}
+                      placeholder="Digite seu e-mail"
+                    />
+                  </div>
+
+                  <div className="campo">
+                    <label htmlFor="senha">Senha</label>
+                    <input 
+                      type="password" 
                       id="senha" 
                       name="senha" 
-                      value={senha}
-                      onChange={(e) => setSenha(e.target.value)}
-                      placeholder="Crie uma senha"
+                      value={senhaLogin}
+                      onChange={(e) => setSenhaLogin(e.target.value)}
+                      placeholder="Digite sua senha"
                     />
-                    <button 
-                      type="button" 
-                      className="botao-mostrar-senha"
-                      onClick={() => setMostrarSenha(!mostrarSenha)}
-                    >
-                      {mostrarSenha ? "Ocultar" : "Mostrar"}
-                    </button>
                   </div>
-                  <Gerador onGerar={(senhaGerada) => {
-                    setSenha(senhaGerada)
-                    setConfirmarSenha(senhaGerada)
-                  }} />
+
+                  <a href="#" className="esqueceu-senha">Esqueceu a senha?</a>
+
+                  <button onClick={() => entrarUser()} className="botao-entrar">
+                    Entrar
+                  </button>
+
+                  <p className="link-cadastro">
+                    Ainda não tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setEntrar(false) }}>Cadastre-se</a>
+                  </p>
                 </div>
-
-                <div className="campo">
-                  <label htmlFor="confirmarSenha">Confirmar senha</label>
-                  <input 
-                    type={mostrarSenha ? "text" : "password"} 
-                    id="confirmarSenha" 
-                    name="confirmarSenha" 
-                    value={confirmarSenha}
-                    onChange={(e)=>setConfirmarSenha(e.target.value)}
-                    placeholder="Repita a senha"
-                  />
-                </div>
-
-                <button onClick={() => cadastrarUser()} className="botao-cadastrar">
-                  Cadastrar
-                </button>
-
-                <p className="link-login">
-                  Já tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setEntrar(true) }}>Entrar</a>
-                </p>
               </div>
-            </div> 
-            ) : (
-          <div className="login-container">
-            <div className="form-login">
-              <h2>Entrar</h2>
-
-              <div className="campo">
-                <label htmlFor="email">E-mail</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  value={emailLogin}
-                  onChange={(e) => setEmailLogin(e.target.value)}
-                  placeholder="Digite seu e-mail"
-                />
-              </div>
-
-              <div className="campo">
-                <label htmlFor="senha">Senha</label>
-                <input 
-                  type="password" 
-                  id="senha" 
-                  name="senha" 
-                  value={senhaLogin}
-                  onChange={(e) => setSenhaLogin(e.target.value)}
-                  placeholder="Digite sua senha"
-                />
-              </div>
-
-              <a href="#" className="esqueceu-senha">Esqueceu a senha?</a>
-
-              <button onClick={() => entrarUser()} className="botao-entrar">
-                Entrar
-              </button>
-
-              <p className="link-cadastro">
-                Ainda não tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); setEntrar(false) }}>Cadastre-se</a>
-              </p>
-            </div>
-          </div>
-        )}
-      </>
+            )}
+        </>
     )
 }
 
