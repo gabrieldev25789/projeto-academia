@@ -16,16 +16,22 @@ function Onboarding({ usuario, setUsuarioLogado }) {
     experiencia: ""
   })
 
-  function finalizarOnboarding() {
+function finalizarOnboarding() {
     const usuarioAtualizado = {
       ...usuario,
       ...dadosOnboarding,
       onboardingCompleto: true
     }
 
-    localStorage.setItem("user", JSON.stringify(usuarioAtualizado))
+    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
+
+    const usuariosAtualizados = usuariosSalvos.map(u => 
+      u.email === usuarioAtualizado.email ? usuarioAtualizado : u
+    )
+
+    localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
     setUsuarioLogado(usuarioAtualizado)
-  }
+}
 
   return (
     <div className="onboarding-container">
