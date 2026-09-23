@@ -4,16 +4,15 @@ import FormCadastro from './Components/Auth/FormCadastro'
 import Header from "./Components/Header/Header"
 import Home from "./Components/Home/Home"
 import Onboarding from "./Components/Onboarding/Onboarding"
+import { ImcProvider } from "./Components/ImcContext"
 
 function App() {
 
   const [home, setHome] = useState(false)
   const [usuarioLogado, setUsuarioLogado] = useState(null)
 
-  const [imc, setImc] = useState(0)
-
   return (
-    <>
+    <ImcProvider>
       {usuarioLogado && <Header />}
 
       {!usuarioLogado && <FormCadastro setUsuarioLogado={setUsuarioLogado} setHome={setHome}/>}
@@ -24,12 +23,10 @@ function App() {
       <Onboarding 
       usuario={usuarioLogado} 
       setUsuarioLogado={setUsuarioLogado} 
-      imc={imc}
-      setImc={setImc}
       />}
       
-      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado} imc={imc}/>}
-    </>
+      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado}/>}
+    </ImcProvider>
   )
 }
 
