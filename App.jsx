@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "../global.css"
 import FormCadastro from './Components/Auth/FormCadastro'
 import Header from "./Components/Header/Header"
@@ -11,9 +11,23 @@ function App() {
   const [home, setHome] = useState(false)
   const [usuarioLogado, setUsuarioLogado] = useState(null)
 
+
+  useEffect(() => {
+    const emailSessao = localStorage.getItem("sessaoAtual")
+
+    if (emailSessao) {
+      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
+      const usuarioEncontrado = usuarios.find(u => u.email === emailSessao)
+
+      if (usuarioEncontrado) {
+        setUsuarioLogado(usuarioEncontrado)
+      }
+    }
+  }, [])
+
   return (
     <ImcProvider>
-      {usuarioLogado && <Header />}
+      {usuarioLogado && <Header setUsuarioLogado={setUsuarioLogado}/>}
 
       {!usuarioLogado && <FormCadastro setUsuarioLogado={setUsuarioLogado} setHome={setHome}/>}
 
