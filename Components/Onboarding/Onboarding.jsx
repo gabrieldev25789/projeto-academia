@@ -5,8 +5,10 @@ import EtapaExperiencia from "./Etapaexperiencia"
 import "./Onboarding.css"
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function Onboarding({ usuario, setUsuarioLogado }) {
+  const navigate = useNavigate()
 
   const [etapa, setEtapa] = useState(1)
   const [dadosOnboarding, setDadosOnboarding] = useState({
@@ -14,15 +16,13 @@ function Onboarding({ usuario, setUsuarioLogado }) {
     peso: "",
     altura: "",
     idade: "",
-    experiencia: "",
-    imc: 0
+    experiencia: ""
   })
 
-function finalizarOnboarding() {
-  
-  const altura = Number(dadosOnboarding.altura) / 100 
-  const peso = Number(dadosOnboarding.peso)
-  const imcCalculado = peso / (altura ** 2)
+  function finalizarOnboarding() {
+    const altura = Number(dadosOnboarding.altura) / 100
+    const peso = Number(dadosOnboarding.peso)
+    const imcCalculado = peso / (altura ** 2)
 
     const usuarioAtualizado = {
       ...usuario,
@@ -39,7 +39,8 @@ function finalizarOnboarding() {
 
     localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
     setUsuarioLogado(usuarioAtualizado)
-}
+    navigate("/home")
+  }
 
   return (
     <div className="onboarding-container">
