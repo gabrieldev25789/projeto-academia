@@ -10,6 +10,8 @@ function App() {
   const [home, setHome] = useState(false)
   const [usuarioLogado, setUsuarioLogado] = useState(null)
 
+  const [imc, setImc] = useState(0)
+
   return (
     <>
       {usuarioLogado && <Header />}
@@ -22,9 +24,11 @@ function App() {
       <Onboarding 
       usuario={usuarioLogado} 
       setUsuarioLogado={setUsuarioLogado} 
+      imc={imc}
+      setImc={setImc}
       />}
       
-      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado} />}
+      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado} imc={imc}/>}
     </>
   )
 }
