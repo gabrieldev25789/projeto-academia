@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react"
-import { useImc } from "../ImcContext"
+import { useState } from "react"
 
 function EtapaMedidas({ dados, setDados, onProximo, onVoltar }) {
-
-  const { setImc } = useImc()
 
 const LIMITES = {
   altura: { min: 100, max: 220 },
@@ -42,16 +39,6 @@ function atualizarCampo(campo, valor) {
 
   setDados({ ...dados, [campo]: valor })
 }
-
-  useEffect(() => {
-    const altura = Number(dados.altura) / 100
-    const peso = Number(dados.peso)
-
-    if (altura > 0 && peso > 0) {
-      setImc(peso / (altura ** 2))
-    }
-  }, [dados.altura, dados.peso])
-
   const podeAvancar = dados.peso && dados.altura && dados.idade
 
   return (
