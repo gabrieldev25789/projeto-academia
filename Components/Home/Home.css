@@ -78,6 +78,58 @@
   font-weight: 600;
 }
 
+/* Badge de classificação do IMC */
+.badge-imc {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 4px;
+  margin-left: -0.5rem;
+}
+
+.badge-verde {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.badge-amarelo {
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.12);
+}
+
+.badge-vermelho {
+  color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.12);
+}
+
+/* Feedback de compatibilidade com o objetivo */
+.feedback-objetivo {
+  width: 100%;
+  max-width: 500px;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 32px;
+  border: 1px solid;
+}
+
+.feedback-ok {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.feedback-atencao {
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.08);
+  border-color: rgba(250, 204, 21, 0.3);
+}
+
 /* Próximo passo */
 .proximo-passo {
   margin-bottom: 40px;
