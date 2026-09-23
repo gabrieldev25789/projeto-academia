@@ -1,9 +1,19 @@
 import "./Home.css"
+import { useEffect } from "react"
 import { useImc } from "../ImcContext"
 
 function Home({ user }) {
 
-  const { imc } = useImc()
+  const { imc, setImc } = useImc()
+
+  useEffect(() => {
+    const altura = Number(user.altura) / 100
+    const peso = Number(user.peso)
+  
+    if (altura > 0 && peso > 0) {
+      setImc(peso / (altura ** 2))
+      }
+    }, [user])
 
   return (
     <div className="home-container">
