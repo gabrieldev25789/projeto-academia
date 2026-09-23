@@ -1,11 +1,15 @@
+import { Link, useNavigate } from "react-router-dom"
 import "./Header.css"
 
-function Header({setUsuarioLogado}) {
+function Header({ setUsuarioLogado, usuario }) {
+
+  const navigate = useNavigate()
 
   function fazerLogout() {
-  localStorage.removeItem("sessaoAtual")
-  setUsuarioLogado(null)
-}
+    localStorage.removeItem("sessaoAtual")
+    setUsuarioLogado(null)
+    navigate("/cadastro")
+  }
 
   return (
     <header className="header">
@@ -14,16 +18,16 @@ function Header({setUsuarioLogado}) {
       </div>
 
       <nav className="header-nav">
-        <a href="#" className="nav-link nav-link-ativo">Início</a>
-        <a href="#" className="nav-link">Treinos</a>
-        <a href="#" className="nav-link">Dietas</a>
-        <a href="#" className="nav-link">Desempenho</a>
+        <Link to="/home" className="nav-link">Início</Link>
+        <Link to="/treinos" className="nav-link">Treinos</Link>
+        <Link to="/dietas" className="nav-link">Dietas</Link>
+        <Link to="/desempenho" className="nav-link">Desempenho</Link>
       </nav>
 
       <div className="header-usuario">
-        <span className="usuario-nome">Olá, Grizzy</span>
+        <span className="usuario-nome">Olá, {usuario?.nome}</span>
         <div className="usuario-avatar"></div>
-        <button onClick={() => fazerLogout()}>SAIR</button>
+        <button onClick={() => fazerLogout()} className="botao-logout">SAIR</button>
       </div>
     </header>
   )
