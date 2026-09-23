@@ -36,7 +36,17 @@ function cadastrarUser(){
     }
 
     setUserCriado(user) // atualiza o state pra uso futuro (ex: mostrar na tela)
-    localStorage.setItem("user", JSON.stringify(user)) // usa "user", não "userCriado"
+    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
+
+    const emailJaExiste = usuariosSalvos.some(u => u.email === email)
+
+    if(emailJaExiste){
+      alert("Email já cadastrado")
+      return 
+    }
+
+    const usuariosAtualizados = [...usuariosSalvos, user]
+    localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
 
     setUsuarioLogado(user)
     setHome(true)
@@ -48,20 +58,19 @@ function cadastrarUser(){
 }
 
 function entrarUser(){
-    const userLs = JSON.parse(localStorage.getItem("user"))
+    const usuariosSalvos = JSON.parse(localStorage.getItem("usuarios")) || []
 
-    if (!userLs) {
-        alert("Nenhum usuário cadastrado")
+    const userEncontrado = usuariosSalvos.find(
+        u => u.email === emailLogin && u.senha === senhaLogin
+    )
+
+    if (!userEncontrado) {
+        alert("E-mail ou senha incorretos")
         return
     }
 
-    if (emailLogin === userLs.email && senhaLogin === userLs.senha) {
-      setUsuarioLogado(userLs)
-      setHome(true)
-        console.log("IGUAL — login ok")
-    } else {
-        alert("E-mail ou senha incorretos")
-    }
+    setUsuarioLogado(userEncontrado)
+    setHome(true)
 }
 
 return (
