@@ -1,6 +1,12 @@
 import "./Header.css"
 
-function Header() {
+function Header({setUsuarioLogado}) {
+
+  function fazerLogout() {
+  localStorage.removeItem("sessaoAtual")
+  setUsuarioLogado(null)
+}
+
   return (
     <header className="header">
       <div className="header-logo">
@@ -17,6 +23,7 @@ function Header() {
       <div className="header-usuario">
         <span className="usuario-nome">Olá, Grizzy</span>
         <div className="usuario-avatar"></div>
+        <button onClick={() => fazerLogout()}>SAIR</button>
       </div>
     </header>
   )
