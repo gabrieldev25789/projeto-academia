@@ -63,6 +63,7 @@ function cadastrarUser(){
     const usuariosAtualizados = [...usuariosSalvos, user]
     localStorage.setItem("usuarios", JSON.stringify(usuariosAtualizados))
 
+    localStorage.setItem("sessaoAtual", user.email) 
     setUsuarioLogado(user)
     setHome(true)
 
@@ -84,6 +85,7 @@ function entrarUser(){
         return
     }
 
+    localStorage.setItem("sessaoAtual", userEncontrado.email) // ✅ nova linha
     setUsuarioLogado(userEncontrado)
     setHome(true)
 }
