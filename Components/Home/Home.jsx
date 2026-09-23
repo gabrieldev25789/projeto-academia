@@ -1,6 +1,21 @@
 import "./Home.css"
 
+const TABELA_IMC = [
+  { min: 0,    max: 18.5, classificacao: "abaixo_do_peso",  label: "Abaixo do peso", cor: "amarelo" },
+  { min: 18.5, max: 25,   classificacao: "peso_normal",     label: "Peso normal",    cor: "verde" },
+  { min: 25,   max: 30,   classificacao: "sobrepeso",       label: "Sobrepeso",      cor: "amarelo" },
+  { min: 30,   max: 40,   classificacao: "obesidade",       label: "Obesidade",      cor: "vermelho" },
+  { min: 40,   max: 80,   classificacao: "obesidade_grave", label: "Obesidade grave", cor: "vermelho" }
+]
+
 function Home({ user }) {
+
+function classificarImc(imc) {
+  return TABELA_IMC.find(faixa => imc >= faixa.min && imc < faixa.max)
+}
+
+const imc = Number(user?.imc)
+const resultado = classificarImc(imc)
 
   return (
     <div className="home-container">
@@ -16,7 +31,7 @@ function Home({ user }) {
         <div className="metrica-card">
           <span className="metrica-label">IMC</span>
           <span className="metrica-valor">{user?.imc?.toFixed(2)}</span>
-          <span className="metrica-extra">Classificação</span>
+          <span className={`badge-imc badge-${resultado?.cor}`}>{resultado?.label}</span>
         </div>
 
         <div className="metrica-card">
