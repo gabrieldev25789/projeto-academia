@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { Routes, Route, Navigate } from "react-router-dom"
 import "../global.css"
 import FormCadastro from './Components/Auth/FormCadastro'
 import Header from "./Components/Header/Header"
@@ -8,38 +9,38 @@ import { ImcProvider } from "./Components/ImcContext"
 
 function App() {
 
-  const [home, setHome] = useState(false)
   const [usuarioLogado, setUsuarioLogado] = useState(null)
-
-
-  useEffect(() => {
-    const emailSessao = localStorage.getItem("sessaoAtual")
-
-    if (emailSessao) {
-      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
-      const usuarioEncontrado = usuarios.find(u => u.email === emailSessao)
-
-      if (usuarioEncontrado) {
-        setUsuarioLogado(usuarioEncontrado)
-      }
-    }
-  }, [])
 
   return (
     <ImcProvider>
-      {usuarioLogado && <Header setUsuarioLogado={setUsuarioLogado}/>}
+      {usuarioLogado && <Header setUsuarioLogado={setUsuarioLogado} usuario={usuarioLogado} />}
 
-      {!usuarioLogado && <FormCadastro setUsuarioLogado={setUsuarioLogado} setHome={setHome}/>}
+      <Routes>
+        <Route 
+          path="/cadastro" 
+          element={<FormCadastro setUsuarioLogado={setUsuarioLogado} />} 
+        />
 
-      {usuarioLogado &&
-      !usuarioLogado.onboardingCompleto 
-      && 
-      <Onboarding 
-      usuario={usuarioLogado} 
-      setUsuarioLogado={setUsuarioLogado} 
-      />}
-      
-      {usuarioLogado && usuarioLogado.onboardingCompleto && <Home user={usuarioLogado}/>}
+        <Route 
+          path="/onboarding" 
+          element={
+            usuarioLogado 
+              ? <Onboarding usuario={usuarioLogado} setUsuarioLogado={setUsuarioLogado} />
+              : <Navigate to="/cadastro" />
+          } 
+        />
+
+        <Route 
+          path="/home" 
+          element={
+            usuarioLogado?.onboardingCompleto 
+              ? <Home user={usuarioLogado} />
+              : <Navigate to="/cadastro" />
+          } 
+        />
+
+        <Route path="*" element={<Navigate to="/cadastro" />} />
+      </Routes>
     </ImcProvider>
   )
 }
