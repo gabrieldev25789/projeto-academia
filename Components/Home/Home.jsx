@@ -1,6 +1,9 @@
 import "./Home.css"
+import { useImc } from "../ImcContext"
 
 function Home({ user }) {
+
+  const { imc } = useImc()
 
   return (
     <div className="home-container">
@@ -15,7 +18,7 @@ function Home({ user }) {
       <div className="metricas-grid">
         <div className="metrica-card">
           <span className="metrica-label">IMC</span>
-          <span className="metrica-valor">--</span>
+          <span className="metrica-valor">{(imc).toFixed(2)}</span>
           <span className="metrica-extra">Classificação</span>
         </div>
 
