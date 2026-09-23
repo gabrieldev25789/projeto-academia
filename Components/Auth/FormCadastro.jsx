@@ -38,6 +38,9 @@ function cadastrarUser(){
     setUserCriado(user) // atualiza o state pra uso futuro (ex: mostrar na tela)
     localStorage.setItem("user", JSON.stringify(user)) // usa "user", não "userCriado"
 
+    setUsuarioLogado(user)
+    setHome(true)
+
     setNome("")
     setEmail("")
     setSenha("")
