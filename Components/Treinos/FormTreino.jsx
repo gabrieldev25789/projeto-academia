@@ -10,12 +10,12 @@ function FormTreino({ onVoltar }) {
   ])
 
   function adicionarExercicio() {
-    const novoExercicio = { 
-      id: Date.now(), 
-      nome: "", 
-      series: "", 
-      repeticoes: "", 
-      carga: "" 
+    const novoExercicio = {
+      id: Date.now(),
+      nome: "",
+      series: "",
+      repeticoes: "",
+      carga: ""
     }
     setExercicios([...exercicios, novoExercicio])
   }
@@ -25,66 +25,99 @@ function FormTreino({ onVoltar }) {
   }
 
   function atualizarExercicio(id, campo, valor) {
-    setExercicios(exercicios.map(ex => 
+    setExercicios(exercicios.map(ex =>
       ex.id === id ? { ...ex, [campo]: valor } : ex
     ))
+  }
+
+  function salvarTreino() {
+
+    if (!nomeTreino.trim()) {
+      alert("Digite um nome pro treino")
+      return
+    }
+
+    const exerciciosPreenchidos = exercicios.filter(ex => ex.nome.trim())
+    if (exerciciosPreenchidos.length === 0) {
+      alert("Adicione pelo menos 1 exercício")
+      return
+    }
+
+    const novoTreino = {
+      id: Date.now(),
+      nome: nomeTreino,
+      exercicios: exerciciosPreenchidos
+    }
+
+    const emailUsuario = localStorage.getItem("sessaoAtual")
+    const chave = `treinos_${emailUsuario}`
+
+    const treinosSalvos = JSON.parse(localStorage.getItem(chave)) || []
+    const treinosAtualizados = [...treinosSalvos, novoTreino]
+
+    localStorage.setItem(chave, JSON.stringify(treinosAtualizados))
+
+    setNomeTreino("")
+    setExercicios([{ id: Date.now(), nome: "", series: "", repeticoes: "", carga: "" }])
+
+    onVoltar()
   }
 
   return (
     <div className="form-treino">
       <h1>Novo treino</h1>
 
-    <div className="campo-treino">
+      <div className="campo-treino">
         <label htmlFor="nomeTreino">Nome do treino</label>
-        <input 
-            type="text" 
-            id="nomeTreino" 
-            value={nomeTreino}
-            onChange={(e) => setNomeTreino(e.target.value)}
-            placeholder="Ex: Treino A - Peito e Tríceps"
+        <input
+          type="text"
+          id="nomeTreino"
+          value={nomeTreino}
+          onChange={(e) => setNomeTreino(e.target.value)}
+          placeholder="Ex: Treino A - Peito e Tríceps"
         />
-    </div>
+      </div>
 
       <h2>Exercícios</h2>
 
       <div className="lista-exercicios">
         {exercicios.map((exercicio) => (
           <div key={exercicio.id} className="exercicio-linha">
-            
-            <input 
-              type="text" 
+
+            <input
+              type="text"
               placeholder="Nome do exercício"
               value={exercicio.nome}
               onChange={(e) => atualizarExercicio(exercicio.id, "nome", e.target.value)}
               className="input-nome-exercicio"
             />
 
-            <input 
-              type="number" 
+            <input
+              type="number"
               placeholder="Séries"
               value={exercicio.series}
               onChange={(e) => atualizarExercicio(exercicio.id, "series", e.target.value)}
               className="input-numero"
             />
 
-            <input 
-              type="number" 
+            <input
+              type="number"
               placeholder="Reps"
               value={exercicio.repeticoes}
               onChange={(e) => atualizarExercicio(exercicio.id, "repeticoes", e.target.value)}
               className="input-numero"
             />
 
-            <input 
-              type="number" 
+            <input
+              type="number"
               placeholder="Carga (kg)"
               value={exercicio.carga}
               onChange={(e) => atualizarExercicio(exercicio.id, "carga", e.target.value)}
               className="input-numero"
             />
 
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="botao-remover-exercicio"
               onClick={() => removerExercicio(exercicio.id)}
             >
@@ -103,7 +136,7 @@ function FormTreino({ onVoltar }) {
         <button type="button" className="botao-voltar" onClick={onVoltar}>
           Cancelar
         </button>
-        <button type="button" className="botao-salvar-treino">
+        <button type="button" className="botao-salvar-treino" onClick={salvarTreino}>
           Salvar treino
         </button>
       </div>
