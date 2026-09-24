@@ -1,0 +1,60 @@
+body{
+    color: rgb(255, 255, 255);
+}
+.lista-treinos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.lista-treinos-vazia {
+  color: #888888;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 24px;
+}
+
+/* Card de treino */
+.card-treino {
+  background: #161616;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.card-treino:hover {
+  border-color: #ff6b00;
+}
+
+.card-treino h3 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #262626;
+}
+
+.card-treino ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.card-treino li {
+  background: #0d0d0d;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #d0d0d0;
+  font-size: 0.9rem;
+}
