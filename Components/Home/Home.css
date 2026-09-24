@@ -160,6 +160,7 @@
 }
 
 .botao-cta {
+  text-decoration: none;
   background: linear-gradient(135deg, #ff6b00, #ff8c00);
   color: #0d0d0d;
   font-size: 0.9rem;
@@ -187,6 +188,7 @@
 }
 
 .atalho-card {
+  text-decoration: none;
   background: #161616;
   border: 1px solid #262626;
   border-radius: 12px;
