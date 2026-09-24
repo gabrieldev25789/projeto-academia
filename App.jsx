@@ -6,6 +6,7 @@ import Header from "./Components/Header/Header"
 import Home from "./Components/Home/Home"
 import Onboarding from "./Components/Onboarding/Onboarding"
 import { ImcProvider } from "./Components/ImcContext"
+import Treinos from "./pages/Treinos/Treinos"
 
 function App() {
 
@@ -40,6 +41,15 @@ function App() {
         />
 
         <Route path="*" element={<Navigate to="/cadastro" />} />
+
+        <Route 
+          path="/treinos" 
+          element={
+            usuarioLogado?.onboardingCompleto 
+              ? <Treinos />
+              : <Navigate to="/cadastro" />
+          } 
+        />
       </Routes>
     </ImcProvider>
   )
