@@ -1,4 +1,5 @@
 import "./Home.css"
+import { Link } from "react-router-dom"
 
 const TABELA_IMC = [
   { min: 0,    max: 18.5, classificacao: "abaixo_do_peso",  label: "Abaixo do peso", cor: "amarelo" },
@@ -45,26 +46,28 @@ const resultado = classificarImc(imc)
         <h2>Treino de hoje</h2>
         <div className="card-placeholder">
           <p>Você ainda não tem treinos cadastrados</p>
-          <button type="button" className="botao-cta">Criar meu primeiro treino</button>
+          <Link to="/treinos" state={{ abrirFormulario: true }} className="botao-cta">
+            Criar meu primeiro treino
+          </Link>
         </div>
       </div>
 
       {/* Atalhos rápidos */}
       <div className="atalhos-grid">
-        <div className="atalho-card">
+        <Link to="/treinos" className="atalho-card">
           <span className="atalho-icone">🏋️</span>
           <span className="atalho-label">Treinos</span>
-        </div>
+        </Link>
 
-        <div className="atalho-card">
+        <Link to="/dietas" className="atalho-card">
           <span className="atalho-icone">🥗</span>
           <span className="atalho-label">Dietas</span>
-        </div>
+        </Link>
 
-        <div className="atalho-card">
+        <Link to="/desempenho" className="atalho-card">
           <span className="atalho-icone">📊</span>
           <span className="atalho-label">Desempenho</span>
-        </div>
+        </Link>
       </div>
 
     </div>
