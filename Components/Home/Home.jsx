@@ -11,12 +11,17 @@ const TABELA_IMC = [
 
 function Home({ user }) {
 
-function classificarImc(imc) {
-  return TABELA_IMC.find(faixa => imc >= faixa.min && imc < faixa.max)
-}
+  function classificarImc(imc) {
+    return TABELA_IMC.find(faixa => imc >= faixa.min && imc < faixa.max)
+  }
 
-const imc = Number(user?.imc)
-const resultado = classificarImc(imc)
+  const emailUsuario = localStorage.getItem("sessaoAtual")
+  const chave = `treinos_${emailUsuario}`
+  const treinosSalvos = JSON.parse(localStorage.getItem(chave)) || []
+
+  const imc = Number(user?.imc)
+  const resultado = classificarImc(imc)
+  const temTreinos = treinosSalvos.length > 0
 
   return (
     <div className="home-container">
@@ -44,12 +49,21 @@ const resultado = classificarImc(imc)
       {/* O que fazer agora */}
       <div className="proximo-passo">
         <h2>Treino de hoje</h2>
-        <div className="card-placeholder">
-          <p>Você ainda não tem treinos cadastrados</p>
-          <Link to="/treinos" state={{ abrirFormulario: true }} className="botao-cta">
-            Criar meu primeiro treino
-          </Link>
-        </div>
+        {!temTreinos ? (
+          <div className="card-placeholder">
+            <p>Você ainda não tem treinos cadastrados</p>
+            <Link to="/treinos" state={{ abrirFormulario: true }} className="botao-cta">
+              Criar meu primeiro treino
+            </Link>
+          </div>
+        ) : (
+          <div className="card-placeholder">
+            <p>Você já tem {treinosSalvos.length} treino(s) cadastrado(s)</p>
+            <Link to="/treinos" state={{ abrirFormulario: true }} className="botao-cta">
+              Criar mais treinos
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Atalhos rápidos */}
