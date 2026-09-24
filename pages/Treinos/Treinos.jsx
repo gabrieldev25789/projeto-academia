@@ -1,23 +1,29 @@
 import { useLocation } from "react-router-dom"
 import { useState } from "react"
-import FormTreino from "./FormTreino"
+import FormTreino from "../../Components/Treinos/FormTreino"
+import "./Treinos.css"
 
 function Treinos() {
-    const location = useLocation()
-    const [criarTreino, setCriarTreino] = useState(location.state?.abrirFormulario || false)
+  const location = useLocation()
+  const [criarTreino, setCriarTreino] = useState(location.state?.abrirFormulario || false)
 
   return (
     <div className="treinos-container">
       {criarTreino ? (
-        <div>
-          <h1>Novo treino</h1>
-          <FormTreino />
-        </div>
+        <FormTreino onVoltar={() => setCriarTreino(false)} />
       ) : (
-        <div>
+        <div className="treinos-vazio">
           <h1>Treinos</h1>
-          <p>Nenhum treino cadastrado ainda</p>
-          <button onClick={() => setCriarTreino(true)}>Criar treino</button>
+          <div className="card-placeholder-treinos">
+            <p>Nenhum treino cadastrado ainda</p>
+            <button 
+              type="button" 
+              className="botao-cta" 
+              onClick={() => setCriarTreino(true)}
+            >
+              Criar treino
+            </button>
+          </div>
         </div>
       )}
     </div>
