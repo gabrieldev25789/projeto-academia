@@ -1,3 +1,7 @@
+body{
+  color: white;
+}
+
 .lista-treinos {
   display: flex;
   flex-direction: column;
@@ -16,6 +20,7 @@
 
 /* Card de treino */
 .card-treino {
+  margin-top: 1rem;
   background: #161616;
   border: 1px solid #262626;
   border-radius: 12px;
