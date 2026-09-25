@@ -1,6 +1,3 @@
-body{
-    color: rgb(255, 255, 255);
-}
 .lista-treinos {
   display: flex;
   flex-direction: column;
@@ -21,24 +18,43 @@ body{
 .card-treino {
   background: #161616;
   border: 1px solid #262626;
-  border-radius: 10px;
-  padding: 20px;
-  transition: border-color 0.2s ease;
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .card-treino:hover {
   border-color: #ff6b00;
+  transform: translateY(-2px);
+}
+
+.card-treino-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #262626;
 }
 
 .card-treino h3 {
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #262626;
+}
+
+.card-treino-contador {
+  color: #ff6b00;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 107, 0, 0.1);
+  border-radius: 20px;
+  padding: 4px 12px;
+  white-space: nowrap;
 }
 
 .card-treino ul {
@@ -51,10 +67,33 @@ body{
 }
 
 .card-treino li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: #0d0d0d;
   border: 1px solid #2e2e2e;
-  border-radius: 6px;
-  padding: 10px 12px;
-  color: #d0d0d0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  transition: border-color 0.2s ease;
+}
+
+.card-treino li:hover {
+  border-color: #3a3a3a;
+}
+
+.exercicio-nome {
+  color: #ffffff;
   font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.exercicio-detalhes {
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.exercicio-detalhes strong {
+  color: #ff8c00;
 }
