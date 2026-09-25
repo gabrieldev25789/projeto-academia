@@ -1,9 +1,12 @@
 import { useState } from "react"
 import "./FormTreino.css"
+import SeletorDiaSemana from "./SeletorDiaSemana"
 
 function FormTreino({ onVoltar }) {
 
   const [nomeTreino, setNomeTreino] = useState("")
+
+  const [diaSemana, setDiaSemana] = useState("")
 
   const [exercicios, setExercicios] = useState([
     { id: 1, nome: "", series: "", repeticoes: "", carga: "" }
@@ -15,7 +18,7 @@ function FormTreino({ onVoltar }) {
       nome: "",
       series: "",
       repeticoes: "",
-      carga: ""
+      carga: "",
     }
     setExercicios([...exercicios, novoExercicio])
   }
@@ -46,6 +49,7 @@ function FormTreino({ onVoltar }) {
     const novoTreino = {
       id: Date.now(),
       nome: nomeTreino,
+      diaSemana: diaSemana,
       exercicios: exerciciosPreenchidos
     }
 
@@ -58,13 +62,24 @@ function FormTreino({ onVoltar }) {
     localStorage.setItem(chave, JSON.stringify(treinosAtualizados))
 
     setNomeTreino("")
+    setDiaSemana("")
     setExercicios([{ id: Date.now(), nome: "", series: "", repeticoes: "", carga: "" }])
+    console.log(treinosAtualizados)
 
     onVoltar()
   }
 
+  function escolherDia(dia){
+    setDiaSemana(dia)
+  }
+
   return (
-    <div className="form-treino">
+    <>
+      {!diaSemana ? (
+        <SeletorDiaSemana escolherDia={escolherDia}/>
+      ) : 
+      (
+      <div className="form-treino">
       <h1>Novo treino</h1>
 
       <div className="campo-treino">
@@ -123,7 +138,6 @@ function FormTreino({ onVoltar }) {
             >
               ✕
             </button>
-
           </div>
         ))}
       </div>
@@ -141,6 +155,8 @@ function FormTreino({ onVoltar }) {
         </button>
       </div>
     </div>
+      )}
+  </>
   )
 }
 
