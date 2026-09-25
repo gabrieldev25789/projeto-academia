@@ -2,6 +2,12 @@ body{
   color: white;
 }
 
+.secao-dia{
+  background-color: #c96d2c;
+  padding: 1rem;
+  border-radius: 2rem;
+}
+
 .lista-treinos {
   display: flex;
   flex-direction: column;

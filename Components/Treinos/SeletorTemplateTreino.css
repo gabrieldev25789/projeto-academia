@@ -1,0 +1,126 @@
+.seletor-template {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.seletor-template h1 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* Grid de cards */
+.lista-templates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card-template {
+  display: flex;
+  flex-direction: column;
+  background: #161616;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.card-template:hover {
+  border-color: #ff6b00;
+  transform: translateY(-2px);
+}
+
+/* Badge de categoria */
+.template-categoria {
+  align-self: flex-start;
+  background: rgba(255, 107, 0, 0.12);
+  color: #ff6b00;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.card-template h2 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Lista de exercícios dentro do card */
+.template-exercicios {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.template-exercicios li {
+  background: #0d0d0d;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #d0d0d0;
+  font-size: 0.85rem;
+}
+
+/* Botão de escolher template — empurrado pro fim do card */
+.botao-usar-template {
+  margin-top: auto;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff6b00, #ff8c00);
+  color: #0d0d0d;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.botao-usar-template:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.35);
+}
+
+/* Botão criar do zero — estilo outline, separado dos cards */
+.botao-criar-do-zero {
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: 1px dashed #2e2e2e;
+  border-radius: 8px;
+  color: #a0a0a0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.botao-criar-do-zero:hover {
+  border-color: #ff6b00;
+  color: #ff6b00;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .lista-templates {
+    grid-template-columns: 1fr;
+  }
+}

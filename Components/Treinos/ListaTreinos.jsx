@@ -2,7 +2,7 @@ import "./ListaTreinos.css"
 
 const ORDEM_DIAS = [
   { id: "segunda", label: "Segunda-feira" },
-  { id: "terca", label: "Terça-feira" },
+  { id: "terça", label: "Terça-feira" },
   { id: "quarta", label: "Quarta-feira" },
   { id: "quinta", label: "Quinta-feira" },
   { id: "sexta", label: "Sexta-feira" },
