@@ -2,7 +2,7 @@ import "./SeletorDiaSemana.css"
 
 const DIAS = [
   { id: "segunda", label: "Seg" },
-  { id: "terca", label: "Ter" },
+  { id: "terça", label: "Ter" },
   { id: "quarta", label: "Qua" },
   { id: "quinta", label: "Qui" },
   { id: "sexta", label: "Sex" },
