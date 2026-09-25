@@ -46,7 +46,6 @@ function Treinos() {
       ) : (
         <div className="treinos-lista-wrapper">
           <div className="treinos-cabecalho">
-            <h1>Treinos</h1>
             <button type="button" className="botao-cta" onClick={() => setCriarTreino(true)}>
               + Novo treino
             </button>
