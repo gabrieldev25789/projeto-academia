@@ -2,7 +2,7 @@ import "./ListaTreinos.css"
 
 const ORDEM_DIAS = [
   { id: "segunda", label: "Segunda-feira" },
-  { id: "terça", label: "Terça-feira" },
+  { id: "terca", label: "Terça-feira" },
   { id: "quarta", label: "Quarta-feira" },
   { id: "quinta", label: "Quinta-feira" },
   { id: "sexta", label: "Sexta-feira" },
@@ -23,7 +23,7 @@ function agruparPorDia(treinos) {
   }, {})
 }
 
-function ListaTreinos({ treinos }) {
+function ListaTreinos({ treinos, onRemoverExercicio }) {
 
   if (!treinos || treinos.length === 0) {
     return <p className="lista-treinos-vazia">Nenhum treino salvo ainda.</p>
@@ -56,10 +56,19 @@ function ListaTreinos({ treinos }) {
                   <ul>
                     {treino.exercicios.map((ex) => (
                       <li key={ex.id}>
-                        <span className="exercicio-nome">{ex.nome}</span>
-                        <span className="exercicio-detalhes">
-                          <strong>{ex.series}x{ex.repeticoes}</strong> · {ex.carga}kg
-                        </span>
+                        <div className="exercicio-info">
+                          <span className="exercicio-nome">{ex.nome}</span>
+                          <span className="exercicio-detalhes">
+                            <strong>{ex.series}x{ex.repeticoes}</strong> · {ex.carga}kg
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          className="botao-remover-item"
+                          onClick={() => onRemoverExercicio(treino.id, ex.id)}
+                        >
+                          ✕
+                        </button>
                       </li>
                     ))}
                   </ul>
