@@ -5,39 +5,30 @@ import SeletorTemplateTreino from "./SeletorTemplateTreino"
 
 function FormTreino({ onVoltar }) {
 
-  // Controla em qual "tela" do fluxo o usuário está.
-  // Começa em "template" porque é a primeira etapa (escolher um treino pronto ou do zero).
   const [etapaAtual, setEtapaAtual] = useState("template") // "template" | "dia" | "form"
 
   // Dados do treino que está sendo montado
   const [nomeTreino, setNomeTreino] = useState("")
   const [diaSemana, setDiaSemana] = useState("")
   const [exercicios, setExercicios] = useState([
-    { id: 1, nome: "", series: "", repeticoes: "", carga: "" } // linha inicial vazia do formulário
+    { id: 1, nome: "", series: "", repeticoes: "", carga: "" } 
   ])
 
-  // Chamada pelo SeletorTemplateTreino quando o usuário escolhe um treino pronto.
-  // Pré-preenche nome e exercícios com os dados do template, e avança pra etapa "dia".
   function escolherTemplate(template) {
     setNomeTreino(template.nome)
     setExercicios(template.exercicios)
     setEtapaAtual("dia")
   }
 
-  // Chamada quando o usuário prefere montar o treino do zero.
-  // Não preenche nada, só avança pra etapa "dia" (nomeTreino/exercicios ficam com o valor inicial).
   function criarDoZero() {
     setEtapaAtual("dia")
   }
 
-  // Chamada pelo SeletorDiaSemana quando o usuário escolhe um dia.
-  // Guarda o dia e avança pra etapa final do formulário.
   function escolherDia(dia) {
     setDiaSemana(dia)
     setEtapaAtual("form")
   }
 
-  // Adiciona uma nova linha vazia à lista de exercícios (usa Date.now() pra garantir id único)
   function adicionarExercicio() {
     const novoExercicio = {
       id: Date.now(),
@@ -49,36 +40,36 @@ function FormTreino({ onVoltar }) {
     setExercicios([...exercicios, novoExercicio])
   }
 
-  // Remove da lista o exercício com o id passado
   function removerExercicio(id) {
     setExercicios(exercicios.filter(ex => ex.id !== id))
   }
 
-  // Atualiza um único campo (nome, series, repeticoes ou carga) de um exercício específico,
-  // mantendo os outros exercícios da lista intactos
   function atualizarExercicio(id, campo, valor) {
     setExercicios(exercicios.map(ex =>
       ex.id === id ? { ...ex, [campo]: valor } : ex
     ))
   }
 
-  // Roda quando o usuário clica em "Salvar treino"
   function salvarTreino() {
 
-    // Validação: precisa ter um nome
     if (!nomeTreino.trim()) {
       alert("Digite um nome pro treino")
       return
     }
 
-    // Ignora linhas de exercício que ficaram sem nome preenchido
     const exerciciosPreenchidos = exercicios.filter(ex => ex.nome.trim())
     if (exerciciosPreenchidos.length === 0) {
       alert("Adicione pelo menos 1 exercício")
       return
     }
 
-    // Monta o objeto final do treino, incluindo o dia da semana escolhido na etapa anterior
+    const temExercicioSemCarga = exerciciosPreenchidos.some(ex => ex.carga === "")
+    
+      if (temExercicioSemCarga) {
+        alert("Escolha cargas pros seus exercícios")
+        return
+      }
+
     const novoTreino = {
       id: Date.now(),
       nome: nomeTreino,
@@ -86,25 +77,20 @@ function FormTreino({ onVoltar }) {
       exercicios: exerciciosPreenchidos
     }
 
-    // Cada usuário tem sua própria chave no localStorage, baseada no e-mail da sessão
     const emailUsuario = localStorage.getItem("sessaoAtual")
     const chave = `treinos_${emailUsuario}`
 
-    // Lê os treinos já salvos (ou começa com array vazio se não existir nada ainda)
-    // e adiciona o novo treino no fim da lista
     const treinosSalvos = JSON.parse(localStorage.getItem(chave)) || []
     const treinosAtualizados = [...treinosSalvos, novoTreino]
 
     localStorage.setItem(chave, JSON.stringify(treinosAtualizados))
 
-    // Reseta todo o formulário pro estado inicial, incluindo a volta pra primeira etapa
-    // (importante: sem isso, reabrir o form cairia direto na etapa "form" de novo)
     setNomeTreino("")
     setDiaSemana("")
     setExercicios([{ id: Date.now(), nome: "", series: "", repeticoes: "", carga: "" }])
     setEtapaAtual("template")
 
-    // Avisa o componente pai (Treinos.jsx) que terminou, pra ele recarregar a lista e fechar o form
+
     onVoltar()
   }
 
