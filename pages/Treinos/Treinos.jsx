@@ -25,6 +25,25 @@ function Treinos() {
     carregarTreinos()
   }
 
+function removerExercicio(treinoId, exercicioId) {
+  const emailUsuario = localStorage.getItem("sessaoAtual")
+  const chave = `treinos_${emailUsuario}`
+
+  const treinosSalvos = JSON.parse(localStorage.getItem(chave)) || []
+
+  const treinosAtualizados = treinosSalvos.map(treino => {
+    if (treino.id !== treinoId) return treino
+
+    return {
+      ...treino,
+      exercicios: treino.exercicios.filter(ex => ex.id !== exercicioId)
+    }
+  })
+
+  localStorage.setItem(chave, JSON.stringify(treinosAtualizados))
+  carregarTreinos()
+}
+
   return (
     <div className="treinos-container">
       {criarTreino ? (
@@ -50,7 +69,7 @@ function Treinos() {
               + Novo treino
             </button>
           </div>
-          <ListaTreinos treinos={treinos} />
+          <ListaTreinos treinos={treinos} onRemoverExercicio={removerExercicio}/>
         </div>
       )}
     </div>
