@@ -63,8 +63,7 @@ function FormTreino({ onVoltar }) {
       return
     }
 
-    const temExercicioSemCarga = exerciciosPreenchidos.some(ex => ex.carga === "")
-    
+    const temExercicioSemCarga = exerciciosPreenchidos.some(ex => ex.carga === "" || ex.carga <= 0)
       if (temExercicioSemCarga) {
         alert("Escolha cargas pros seus exercícios")
         return
