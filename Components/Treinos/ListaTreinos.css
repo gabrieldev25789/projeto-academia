@@ -1,17 +1,7 @@
-body{
-  color: white;
-}
-
-.secao-dia{
-  background-color: #c96d2c;
-  padding: 1rem;
-  border-radius: 2rem;
-}
-
 .lista-treinos {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
@@ -24,9 +14,31 @@ body{
   padding: 24px;
 }
 
+/* Seção por dia da semana */
+.secao-dia {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.secao-dia-titulo {
+  color: #ff6b00;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #262626;
+}
+
+.secao-dia-treinos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 /* Card de treino */
 .card-treino {
-  margin-top: 1rem;
   background: #161616;
   border: 1px solid #262626;
   border-radius: 12px;
@@ -81,6 +93,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   background: #0d0d0d;
   border: 1px solid #2e2e2e;
   border-radius: 8px;
@@ -92,10 +105,22 @@ body{
   border-color: #3a3a3a;
 }
 
+.exercicio-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: 12px;
+  min-width: 0;
+}
+
 .exercicio-nome {
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .exercicio-detalhes {
@@ -107,4 +132,22 @@ body{
 
 .exercicio-detalhes strong {
   color: #ff8c00;
+}
+
+.botao-remover-item {
+  background: transparent;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  color: #ff4d4d;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.botao-remover-item:hover {
+  border-color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.1);
 }
