@@ -7,6 +7,7 @@ import Home from "./Components/Home/Home"
 import Onboarding from "./Components/Onboarding/Onboarding"
 import { ImcProvider } from "./Components/ImcContext"
 import Treinos from "./pages/Treinos/Treinos.jsx"
+import Dietas from "./pages/Dietas/Dietas.jsx"
 
 function App() {
 
@@ -53,8 +54,6 @@ function App() {
           } 
         />
 
-        <Route path="*" element={<Navigate to="/cadastro" />} />
-
         <Route 
           path="/treinos" 
           element={
@@ -63,6 +62,17 @@ function App() {
               : <Navigate to="/cadastro" />
           } 
         />
+
+        <Route 
+          path="/dietas" 
+          element={
+            usuarioLogado?.onboardingCompleto 
+              ? <Dietas />
+              : <Navigate to="/cadastro" />
+          } 
+        />
+
+        <Route path="*" element={<Navigate to="/cadastro" />} />
       </Routes>
     </ImcProvider>
   )
