@@ -1,0 +1,93 @@
+.dietas-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1a1a 0%, #0d0d0d 100%);
+  padding: 48px 40px;
+}
+
+/* Estado vazio (sem refeições ainda) */
+.dietas-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+
+.dietas-vazio h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.card-placeholder-dietas {
+  width: 100%;
+  background: #161616;
+  border: 1px dashed #2e2e2e;
+  border-radius: 12px;
+  padding: 40px 32px;
+}
+
+.card-placeholder-dietas p {
+  color: #888888;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.card-placeholder-dietas .botao-cta {
+  background: linear-gradient(135deg, #ff6b00, #ff8c00);
+  color: #0d0d0d;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-placeholder-dietas .botao-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.35);
+}
+
+/* Cabeçalho da lista (quando já tem refeições) */
+.dietas-cabecalho {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.dietas-cabecalho .botao-cta {
+  background: linear-gradient(135deg, #ff6b00, #ff8c00);
+  color: #0d0d0d;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dietas-cabecalho .botao-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.35);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .dietas-container {
+    padding: 32px 20px;
+  }
+
+  .dietas-vazio {
+    margin-top: 32px;
+  }
+}
