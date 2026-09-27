@@ -31,14 +31,16 @@ function removerExercicio(treinoId, exercicioId) {
 
   const treinosSalvos = JSON.parse(localStorage.getItem(chave)) || []
 
-  const treinosAtualizados = treinosSalvos.map(treino => {
-    if (treino.id !== treinoId) return treino
+  const treinosAtualizados = treinosSalvos
+    .map(treino => {
+      if (treino.id !== treinoId) return treino
 
-    return {
-      ...treino,
-      exercicios: treino.exercicios.filter(ex => ex.id !== exercicioId)
-    }
-  })
+      return {
+        ...treino,
+        exercicios: treino.exercicios.filter(ex => ex.id !== exercicioId)
+      }
+    })
+    .filter(treino => treino.exercicios.length > 0)
 
   localStorage.setItem(chave, JSON.stringify(treinosAtualizados))
   carregarTreinos()
