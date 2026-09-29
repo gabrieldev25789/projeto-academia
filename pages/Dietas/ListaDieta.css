@@ -1,0 +1,95 @@
+.lista-dietas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.lista-dietas-vazia {
+  color: #888888;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 24px;
+}
+
+/* Card de refeição */
+.card-dieta {
+  background: #161616;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card-dieta:hover {
+  border-color: #ff6b00;
+  transform: translateY(-2px);
+}
+
+.card-dieta-cabecalho {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #262626;
+}
+
+.card-dieta-tipo {
+  display: inline-block;
+  color: #ff6b00;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 107, 0, 0.1);
+  border-radius: 20px;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+
+.card-dieta h3 {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.card-dieta ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.card-dieta li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #0d0d0d;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  padding: 12px 14px;
+  transition: border-color 0.2s ease;
+}
+
+.card-dieta li:hover {
+  border-color: #3a3a3a;
+}
+
+.card-dieta li span:first-child {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-dieta li span:last-child {
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
